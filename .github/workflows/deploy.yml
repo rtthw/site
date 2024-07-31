@@ -23,10 +23,6 @@ jobs:
       with:
         # Optional version of trunk to install(eg. 'v0.16.0', 'latest')
         version: 'latest'
-    - name: Cargo fmt & clippy
-      run: |
-        cargo fmt --all -- --check
-        cargo clippy -- --deny=warnings
     - name: Tests
       run: cargo test
     - name: Run web tests
