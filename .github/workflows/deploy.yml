@@ -33,3 +33,5 @@ jobs:
         branch: gh-pages
         folder: ./dist
         clean: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
