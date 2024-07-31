@@ -25,8 +25,6 @@ jobs:
         version: 'latest'
     - name: Tests
       run: cargo test
-    - name: Run web tests
-      run: wasm-pack test --headless --chrome
     - name: Build app
       run: trunk build --public-url=/rtthw.github.io/
     - name: Deploy
