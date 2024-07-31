@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+        targets: wasm32-unknown-unknown
+        components: rust-src
+    - uses: jetli/wasm-pack-action@v0.4.0
+      with:
+        # Optional version of wasm-pack to install(eg. '0.9.1', 'latest')
+        version: 'latest'
+    - uses: jetli/trunk-action@v0.5.0
+      with:
+        # Optional version of trunk to install(eg. 'v0.16.0', 'latest')
+        version: 'latest'
+    - name: Cargo fmt & clippy
+      run: |
+        cargo fmt --all -- --check
+        cargo clippy -- --deny=warnings
+    - name: Tests
+      run: cargo test
+    - name: Run web tests
+      run: wasm-pack test --headless --chrome
+    - name: Build app
+      run: trunk build --public-url=/rtthw.github.io/
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4.2.2
+      with:
+        branch: gh-pages
+        folder: ./dist
+        clean: true
