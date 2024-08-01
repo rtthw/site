@@ -4,10 +4,7 @@ use yew::{
     prelude::*,
 };
 use yew_router::prelude::*;
-use rtthw::{
-    home::*,
-    page_not_found::*,
-};
+use rtthw::*;
 
 
 
@@ -134,6 +131,8 @@ pub enum Route {
     #[not_found]
     #[at("/404")]
     NotFound,
+    #[at("/about")]
+    About,
 }
 
 
@@ -144,6 +143,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::NotFound => {
             html! { <PageNotFound /> }
+        }
+        Route::About => {
+            html! { <About /> }
         }
     }
 }
