@@ -93,9 +93,9 @@ impl App {
                         <Link<Route> classes={classes!("navbar-item")} to={Route::Home}>
                             { "Home" }
                         </Link<Route>>
-                        <Link<Route> classes={classes!("navbar-item")} to={Route::About}>
+                        <a class={classes!("navbar-item")} href="https://rtthw.github.io/about">
                             { "About" }
-                        </Link<Route>>
+                        </a>
 
                         <div class="navbar-item has-dropdown is-hoverable">
                             <div class="navbar-link">
@@ -104,6 +104,9 @@ impl App {
                             <div class="navbar-dropdown">
                                 <Link<Route> classes={classes!("navbar-item")} to={Route::Home}>
                                     { "Back Home" }
+                                </Link<Route>>
+                                <Link<Route> classes={classes!("navbar-item")} to={Route::About}>
+                                    { "About" }
                                 </Link<Route>>
                             </div>
                         </div>
