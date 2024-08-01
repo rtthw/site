@@ -12,7 +12,7 @@ impl Component for About {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <section class="hero is-danger is-bold is-large">
+            <section class="hero is-bold is-large">
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
