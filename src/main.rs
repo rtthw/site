@@ -2,10 +2,6 @@
 
 
 
-use eframe::egui;
-
-
-
 // ================================================================================================
 
 
@@ -15,7 +11,7 @@ fn main() -> eframe::Result {
     eframe::run_native(
         "rtthw",
         eframe::NativeOptions {
-            viewport: egui::ViewportBuilder::default()
+            viewport: eframe::egui::ViewportBuilder::default()
                 .with_inner_size([1280.0, 720.0])
                 .with_min_inner_size([1280.0, 720.0]),
             ..Default::default()
@@ -29,13 +25,11 @@ fn main() {
     let web_options = eframe::WebOptions::default();
 
     wasm_bindgen_futures::spawn_local(async {
-        let start_result = eframe::WebRunner::new()
-            .start(
-                "the_canvas_id",
-                web_options,
-                Box::new(|cc| Ok(Box::new(eframe_template::TemplateApp::new(cc)))),
-            )
-            .await;
+        let start_result = eframe::WebRunner::new().start(
+            "the_canvas_id",
+            web_options,
+            Box::new(|cc| Ok(Box::new(rtthw::App::new(cc)))),
+        ).await;
 
         // Remove the loading text and spinner:
         let loading_text = web_sys::window()
