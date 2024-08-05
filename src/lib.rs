@@ -86,9 +86,9 @@ pub enum Anchor {
     NotFound,
 }
 
-impl From<&str> for Anchor {
-    fn from(value: &str) -> Self {
-        match value {
+impl From<&String> for Anchor {
+    fn from(value: &String) -> Self {
+        match value.as_str() {
             "" => Self::Home,
             "about" => Self::About,
             _ => Self::NotFound,
