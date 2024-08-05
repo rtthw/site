@@ -14,23 +14,23 @@ pub struct App {
 impl eframe::App for App {
     #[allow(unused)]
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+
         #[cfg(target_arch = "wasm32")]
-        {
-            if &frame.info().web_info.location.hash != self.anchor.as_ref() {
+        if let Some(anchor) = frame.info().web_info.location.hash.strip_prefix('#') {
+            if anchor != self.anchor.as_ref() {
                 self.anchor = Anchor::from(&frame.info().web_info.location.hash);
             }
         }
 
         match self.anchor {
             Anchor::Home => {
-                egui::TopBottomPanel::top("top").show(ctx, |ui| {
+                egui::TopBottomPanel::top("home-top").show(ctx, |ui| {
                     ui.visuals_mut().button_frame = false;
                     ui.horizontal_centered(|ui| {
                         if ui.button("About").clicked() {
                             self.anchor = Anchor::About;
-                            #[cfg(target_arch = "wasm32")]
-                            {
-                                frame.info().web_info.location.hash = self.anchor.as_ref().to_string();
+                            if frame.is_web() {
+                                ui.ctx().open_url(egui::OpenUrl::same_tab("#about"));
                             }
                         }
                     });
@@ -40,20 +40,19 @@ impl eframe::App for App {
                 });
             }
             Anchor::About => {
-                egui::TopBottomPanel::top("top").show(ctx, |ui| {
+                egui::TopBottomPanel::top("about-top").show(ctx, |ui| {
                     ui.visuals_mut().button_frame = false;
                     ui.horizontal_centered(|ui| {
                         if ui.button("Home").clicked() {
                             self.anchor = Anchor::Home;
-                            #[cfg(target_arch = "wasm32")]
-                            {
-                                frame.info().web_info.location.hash = self.anchor.as_ref().to_string();
+                            if frame.is_web() {
+                                ui.ctx().open_url(egui::OpenUrl::same_tab("#home"));
                             }
                         }
                     });
                 });
                 egui::CentralPanel::default().show(ctx, |ui| {
-                    ui.centered_and_justified(|ui| ui.heading("Home Page"));
+                    ui.centered_and_justified(|ui| ui.heading("About Page"));
                 });
             }
             Anchor::NotFound => {
@@ -84,6 +83,16 @@ pub enum Anchor {
     Home,
     About,
     NotFound,
+}
+
+impl std::fmt::Display for Anchor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match self {
+            Self::Home => "home",
+            Self::About => "about",
+            Self::NotFound => "404",
+        })
+    }
 }
 
 impl From<&String> for Anchor {
