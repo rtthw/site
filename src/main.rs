@@ -12,19 +12,20 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
+    provide_meta_context();
     view! {
         <Router>
-            <Html lang="en" dir="ltr" attr:data-theme="light"/>
+            <nav>
+                <A href="about">"About"</A>
+            </nav>
 
-            // injects metadata in the <head> of the page
-            <Meta charset="UTF-8"/>
-            <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-            <Routes>
-                <Route path="/" view=Home/>
-                <Route path="/404" view=NotFound/>
-                <Route path="/about" view=About/>
-            </Routes>
+            <main>
+                <Routes>
+                    <Route path="/" view=Home/>
+                    <Route path="/about" view=About/>
+                    <Route path="/any*" view=NotFound/>
+                </Routes>
+            </main>
         </Router>
     }
 }
