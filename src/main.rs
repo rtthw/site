@@ -25,7 +25,8 @@ fn App() -> impl IntoView {
         <Router>
             <Routes>
                 <Route path="/" view=Home/>
-                <Route path="/*" view=NotFound/>
+                <Route path="/404" view=NotFound/>
+                <Route path="/about" view=About/>
             </Routes>
         </Router>
     }
@@ -45,4 +46,9 @@ fn Home() -> impl IntoView {
 #[component]
 pub fn NotFound() -> impl IntoView {
     view! { <h1>"Uh oh!" <br/> "We couldn't find that page!"</h1>  }
+}
+
+#[component]
+pub fn About() -> impl IntoView {
+    view! { <h1>"About"</h1>  }
 }
