@@ -46,7 +46,7 @@ impl eframe::App for App {
                         if ui.button("Home").clicked() {
                             self.anchor = Anchor::Home;
                             if frame.is_web() {
-                                ui.ctx().open_url(egui::OpenUrl::same_tab("#home"));
+                                ui.ctx().open_url(egui::OpenUrl::same_tab(""));
                             }
                         }
                     });
