@@ -30,7 +30,7 @@ impl eframe::App for App {
                             self.anchor = Anchor::About;
                             #[cfg(target_arch = "wasm32")]
                             {
-                                frame.info().web_info.location.hash = self.anchor.as_ref.to_string;
+                                frame.info().web_info.location.hash = self.anchor.as_ref().to_string();
                             }
                         }
                     });
