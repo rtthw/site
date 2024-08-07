@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["something"],"struct":["Something"]};
+window.SIDEBAR_ITEMS = {"mod":["learn_rust","posts"]};
