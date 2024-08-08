@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["guide_to_rust","posts"]};
