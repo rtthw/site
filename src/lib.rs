@@ -29,6 +29,7 @@ fn main() -> Result<(), JsValue> {
 
     
     let btn_action = Closure::<dyn FnMut()>::new(move || {
+        log("Button success!");
         window.alert_with_message("Trying to change pages...").unwrap();
     });
     document
@@ -39,6 +40,13 @@ fn main() -> Result<(), JsValue> {
         .set_onclick(Some(btn_action.as_ref().unchecked_ref()));
 
     Ok(())
+}
+
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(value: &str);
 }
 
 #[wasm_bindgen]
