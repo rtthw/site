@@ -12,6 +12,9 @@ pub mod guide_to_rust {}
 
 
 use wasm_bindgen::prelude::*;
+use web_sys::HtmlElement;
+
+
 
 // Called when the wasm module is instantiated
 #[wasm_bindgen(start)]
@@ -27,6 +30,17 @@ fn main() -> Result<(), JsValue> {
     val.set_inner_html("Hello from Rust!");
 
     body.append_child(&val)?;
+
+    
+    let btn_action = Closure::<dyn FnMut()>::new(move || {
+        window.alert_with_message("Trying to change pages...").unwrap();
+    });
+    document
+        .get_element_by_id("green-square")
+        .expect("should have #green-square on the page")
+        .dyn_ref::<HtmlElement>()
+        .expect("#green-square be an `HtmlElement`")
+        .set_onclick(Some(btn_action.as_ref().unchecked_ref()));
 
     Ok(())
 }
