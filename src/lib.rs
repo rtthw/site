@@ -39,6 +39,8 @@ fn main() -> Result<(), JsValue> {
         .expect("#test-button should be an `HtmlElement`")
         .set_onclick(Some(btn_action.as_ref().unchecked_ref()));
 
+    btn_action.forget();
+    
     Ok(())
 }
 
