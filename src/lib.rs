@@ -36,10 +36,10 @@ fn main() -> Result<(), JsValue> {
         window.alert_with_message("Trying to change pages...").unwrap();
     });
     document
-        .get_element_by_id("green-square")
-        .expect("should have #green-square on the page")
+        .get_element_by_id("test-button")
+        .expect("should have #test-button on the page")
         .dyn_ref::<HtmlElement>()
-        .expect("#green-square be an `HtmlElement`")
+        .expect("#test-button should be an `HtmlElement`")
         .set_onclick(Some(btn_action.as_ref().unchecked_ref()));
 
     Ok(())
