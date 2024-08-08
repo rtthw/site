@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["learn_rust","posts"]};
+window.SIDEBAR_ITEMS = {"mod":["guide_to_rust","posts"]};
